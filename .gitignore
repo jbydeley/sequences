@@ -1,5 +1,3 @@
-bower_components*
 node_modules
-bower-*.json
 locales.json
 .vs

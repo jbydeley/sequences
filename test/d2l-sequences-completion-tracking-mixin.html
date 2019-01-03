@@ -5,127 +5,131 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 	<title>d2l-completion-tracking-mixin test</title>
-	<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-	<script src="../../web-component-tester/browser.js"></script>
+	<script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+	<script src="../../wct-browser-legacy/browser.js"></script>
 	<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
 	<script src="../node_modules/chai-dom/chai-dom.js"></script>
-	<link rel="import" href="../../polymer/polymer-element.html">
-	<link rel="import" href="../mixins/d2l-sequences-completion-tracking-mixin.html">
+	<script type="module" src="../../@polymer/polymer/polymer-element.js"></script>
+	<script type="module" src="../mixins/d2l-sequences-completion-tracking-mixin.js"></script>
 </head>
 
 <body>
-	<script>
-		class CompletionTrackingTest extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin(Polymer.Element) {
-			static get is() {
-				return 'completion-tracking-test';
-			}
+	<script type="module">
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import '../mixins/d2l-sequences-completion-tracking-mixin.js';
+class CompletionTrackingTest extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin(PolymerElement) {
+	static get is() {
+		return 'completion-tracking-test';
+	}
 
-			// override siren-action-mixin to prevent fetching actual hrefs
-			performSirenAction() {
-				return fetch('data/activity-completion-all.json')
-					.then(response => response.json());
-			}
-		}
-		customElements.define(CompletionTrackingTest.is, CompletionTrackingTest);
-	</script>
+	// override siren-action-mixin to prevent fetching actual hrefs
+	performSirenAction() {
+		return fetch('data/activity-completion-all.json')
+			.then(response => response.json());
+	}
+}
+customElements.define(CompletionTrackingTest.is, CompletionTrackingTest);
+</script>
 	<test-fixture id="MixinFixture">
 		<template>
 			<completion-tracking-test></completion-tracking-test>
 		</template>
 	</test-fixture>
-	<script>
-		describe('d2l-sequences-completion-tracking-mixin', () => {
-			let element;
+	<script type="module">
+import '@polymer/polymer/polymer-element.js';
+import '../mixins/d2l-sequences-completion-tracking-mixin.js';
+describe('d2l-sequences-completion-tracking-mixin', () => {
+	let element;
 
-			beforeEach(() => {
-				element = fixture('MixinFixture');
-			});
+	beforeEach(() => {
+		element = fixture('MixinFixture');
+	});
 
-			it('_isImpersonating must return true for an impersonation token', async() => {
-				const impersonationToken = createFakeToken({
-					sub: 175,
-					actualsub: 169
-				});
-				const isImpersonating = element._isImpersonating(impersonationToken);
-				expect(isImpersonating).to.be.true;
-			});
-
-			it('_isImpersonating must return false for an normal token', async() => {
-				const studentToken = createFakeToken({
-					sub: 175
-				});
-				const isImpersonating = element._isImpersonating(studentToken);
-				expect(isImpersonating).to.be.false;
-			});
-
-			it('startCompletion must perform siren action: view-activity-duration', async() => {
-				const performSirenAction = sinon.spy(element, 'performSirenAction');
-
-				await SirenFixture.load('data/activity-completion-all.json', element);
-				element.startCompletion();
-
-				expect(performSirenAction).to.have.been.calledWithMatch({
-					name: 'view-activity-duration',
-				});
-			});
-
-			it('topicSetDashboardViewState must perform siren action: set-dashboard-view-state', async() => {
-				const performSirenAction = sinon.spy(element, 'performSirenAction');
-
-				await SirenFixture.load('data/activity-completion-all.json', element);
-				element.topicSetDashboardViewState();
-				expect(performSirenAction).to.have.been.calledWithMatch({
-					name: 'set-dashboard-view-state',
-				});
-			});
-
-			it('startCompletion must not perform completion tracking during impersonation', async() => {
-				const performViewActions = sinon.spy(element, '_performViewActions');
-
-				await SirenFixture.load('data/activity-completion-all.json', element);
-				element.token = createFakeToken({
-					sub: 175,
-					actualsub: 169
-				});
-				element.startCompletion();
-
-				expect(performViewActions).not.to.have.been.called;
-			});
-
-			it('finishCompletion must not perform completion tracking during impersonation', async() => {
-				const performViewActions = sinon.spy(element, '_performViewActions');
-
-				await SirenFixture.load('data/activity-completion-all.json', element);
-				element.token = createFakeToken({
-					sub: 175,
-					actualsub: 169
-				});
-				element.finishCompletion();
-
-				expect(performViewActions).not.to.have.been.called;
-			});
-
-			it('finishCompletion must perform siren action: finish-view-activity', async() => {
-				const performSirenAction = sinon.spy(element, 'performSirenAction');
-
-				await SirenFixture.load('data/activity-completion-all.json', element);
-				element._completionEntity = element.entity;
-				element.finishCompletion();
-
-				expect(performSirenAction).to.have.been.calledWithMatch({
-					name: 'finish-view-activity',
-				});
-			});
-
-			function createFakeToken(jwt) {
-				const b64 = btoa(JSON.stringify(jwt));
-				const payload = b64
-					.replace(/\+/g, '-')
-					.replace(/\//g, '_');
-				return '.' + payload;
-			}
+	it('_isImpersonating must return true for an impersonation token', async() => {
+		const impersonationToken = createFakeToken({
+			sub: 175,
+			actualsub: 169
 		});
-	</script>
+		const isImpersonating = element._isImpersonating(impersonationToken);
+		expect(isImpersonating).to.be.true;
+	});
+
+	it('_isImpersonating must return false for an normal token', async() => {
+		const studentToken = createFakeToken({
+			sub: 175
+		});
+		const isImpersonating = element._isImpersonating(studentToken);
+		expect(isImpersonating).to.be.false;
+	});
+
+	it('startCompletion must perform siren action: view-activity-duration', async() => {
+		const performSirenAction = sinon.spy(element, 'performSirenAction');
+
+		await SirenFixture.load('data/activity-completion-all.json', element);
+		element.startCompletion();
+
+		expect(performSirenAction).to.have.been.calledWithMatch({
+			name: 'view-activity-duration',
+		});
+	});
+
+	it('topicSetDashboardViewState must perform siren action: set-dashboard-view-state', async() => {
+		const performSirenAction = sinon.spy(element, 'performSirenAction');
+
+		await SirenFixture.load('data/activity-completion-all.json', element);
+		element.topicSetDashboardViewState();
+		expect(performSirenAction).to.have.been.calledWithMatch({
+			name: 'set-dashboard-view-state',
+		});
+	});
+
+	it('startCompletion must not perform completion tracking during impersonation', async() => {
+		const performViewActions = sinon.spy(element, '_performViewActions');
+
+		await SirenFixture.load('data/activity-completion-all.json', element);
+		element.token = createFakeToken({
+			sub: 175,
+			actualsub: 169
+		});
+		element.startCompletion();
+
+		expect(performViewActions).not.to.have.been.called;
+	});
+
+	it('finishCompletion must not perform completion tracking during impersonation', async() => {
+		const performViewActions = sinon.spy(element, '_performViewActions');
+
+		await SirenFixture.load('data/activity-completion-all.json', element);
+		element.token = createFakeToken({
+			sub: 175,
+			actualsub: 169
+		});
+		element.finishCompletion();
+
+		expect(performViewActions).not.to.have.been.called;
+	});
+
+	it('finishCompletion must perform siren action: finish-view-activity', async() => {
+		const performSirenAction = sinon.spy(element, 'performSirenAction');
+
+		await SirenFixture.load('data/activity-completion-all.json', element);
+		element._completionEntity = element.entity;
+		element.finishCompletion();
+
+		expect(performSirenAction).to.have.been.calledWithMatch({
+			name: 'finish-view-activity',
+		});
+	});
+
+	function createFakeToken(jwt) {
+		const b64 = btoa(JSON.stringify(jwt));
+		const payload = b64
+			.replace(/\+/g, '-')
+			.replace(/\//g, '_');
+		return '.' + payload;
+	}
+});
+</script>
 </body>
 
 </html>

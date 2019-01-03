@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 		<title>d2l-sequences-content-link test</title>
-		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../wct-browser-legacy/browser.js"></script>
 		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
 		<script src="../node_modules/chai-dom/chai-dom.js"></script>
-		<link rel="import" href="../components/d2l-sequences-content-link.html">
+		<script type="module" src="../components/d2l-sequences-content-link.js"></script>
 	</head>
 	<body>
 		<test-fixture id="LinkFixture">
@@ -16,29 +16,30 @@
 				<d2l-sequences-content-link></d2l-sequences-content-link>
 			</template>
 		</test-fixture>
-		<script>
-			describe('d2l-sequences-content-link', () => {
-				before(() => {
-					// skip completion tracking, preventing extraneous HTTP requests
-					D2LSequencesContentLink.prototype._skipCompletion = true;
-				});
+		<script type="module">
+import '../components/d2l-sequences-content-link.js';
+describe('d2l-sequences-content-link', () => {
+	before(() => {
+		// skip completion tracking, preventing extraneous HTTP requests
+		D2LSequencesContentLink.prototype._skipCompletion = true;
+	});
 
-				it('iframe src must match the link-activity src', async() => {
-					const element = await SirenFixture.load('data/activity-link.json', fixture('LinkFixture'));
-					const src = element.shadowRoot.querySelector('iframe').getAttribute('src');
-					expect(src).to.equal('data/quicklink.html');
-				});
+	it('iframe src must match the link-activity src', async() => {
+		const element = await SirenFixture.load('data/activity-link.json', fixture('LinkFixture'));
+		const src = element.shadowRoot.querySelector('iframe').getAttribute('src');
+		expect(src).to.equal('data/quicklink.html');
+	});
 
-				it('displays iframe content once spinner is hidden', done => {
-					SirenFixture.load('data/activity-link.json', fixture('LinkFixture')).then(element => {
-						const iframe = element.shadowRoot.querySelector('iframe');
-						setTimeout(() => {
-							expect(iframe).not.to.have.class('hide');
-							done();
-						}, 500);
-					});
-				});
-			});
-		</script>
+	it('displays iframe content once spinner is hidden', done => {
+		SirenFixture.load('data/activity-link.json', fixture('LinkFixture')).then(element => {
+			const iframe = element.shadowRoot.querySelector('iframe');
+			setTimeout(() => {
+				expect(iframe).not.to.have.class('hide');
+				done();
+			}, 500);
+		});
+	});
+});
+</script>
 	</body>
 </html>

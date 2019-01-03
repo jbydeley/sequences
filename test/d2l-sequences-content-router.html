@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 		<title>d2l-sequences-content-router test</title>
-		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../wct-browser-legacy/browser.js"></script>
 		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
-		<link rel="import" href="loadFileWithDelay.html">
-		<link rel="import" href="../components/d2l-sequences-content-router.html">
+		<script type="module" src="./loadFileWithDelay.js"></script>
+		<script type="module" src="../components/d2l-sequences-content-router.js"></script>
 	</head>
 	<body>
 		<test-fixture id="RouterFixture">
@@ -16,72 +16,74 @@
 				<d2l-sequences-content-router></d2l-sequences-content-router>
 			</template>
 		</test-fixture>
-		<script>
-			describe('d2l-sequences-content-router', () => {
-				describe('should handle a file activity for the mimetype:', () => {
-					it('application/pdf', async() => {
-						const element = await loadFileWithDelay('data/activity-file-pdf.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
-					});
+		<script type="module">
+import './loadFileWithDelay.js';
+import '../components/d2l-sequences-content-router.js';
+describe('d2l-sequences-content-router', () => {
+	describe('should handle a file activity for the mimetype:', () => {
+		it('application/pdf', async() => {
+			const element = await loadFileWithDelay('data/activity-file-pdf.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+		});
 
-					it('image/bmp', async() => {
-						const element = await loadFileWithDelay('data/activity-file-bmp.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
-					});
+		it('image/bmp', async() => {
+			const element = await loadFileWithDelay('data/activity-file-bmp.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+		});
 
-					it('should handle image/gif', async() => {
-						const element = await loadFileWithDelay('data/activity-file-gif.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
-					});
+		it('should handle image/gif', async() => {
+			const element = await loadFileWithDelay('data/activity-file-gif.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+		});
 
-					it('should handle image/jpeg', async() => {
-						const element = await loadFileWithDelay('data/activity-file-jpeg.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
-					});
+		it('should handle image/jpeg', async() => {
+			const element = await loadFileWithDelay('data/activity-file-jpeg.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+		});
 
-					it('should handle image/png', async() => {
-						const element = await loadFileWithDelay('data/activity-file-png.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
-					});
+		it('should handle image/png', async() => {
+			const element = await loadFileWithDelay('data/activity-file-png.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+		});
 
-					it('should handle image/svg+xml', async() => {
-						const element = await loadFileWithDelay('data/activity-file-svg.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
-					});
+		it('should handle image/svg+xml', async() => {
+			const element = await loadFileWithDelay('data/activity-file-svg.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+		});
 
-					it('text/html', async() => {
-						const element = await loadFileWithDelay('data/activity-file-html.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
-					});
-				});
+		it('text/html', async() => {
+			const element = await loadFileWithDelay('data/activity-file-html.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+		});
+	});
 
-				describe('should handle file activity types for unregistered mimetypes:', () => {
-					it('such as application/zip', async() => {
-						const element = await loadFileWithDelay('data/activity-file-zip.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).not.to.exist;
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-download')).to.exist;
-					});
-				});
+	describe('should handle file activity types for unregistered mimetypes:', () => {
+		it('such as application/zip', async() => {
+			const element = await loadFileWithDelay('data/activity-file-zip.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).not.to.exist;
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-file-download')).to.exist;
+		});
+	});
 
-				describe('should handle link activities', () => {
-					it('should handle mixed security links', async() => {
-						const element = await loadFileWithDelay('data/activity-link-insecure.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-link')).to.exist;
-					});
-					it('should handle normal links', async() => {
-						const element = await loadFileWithDelay('data/activity-link-secure.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-link-mixed')).to.exist;
-					});
-					it('should handle scorm links', async() => {
-						const element = await loadFileWithDelay('data/activity-link-scorm.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-link-scorm')).to.exist;
-					});
-					it('should handle onedrive links', async() => {
-						const element = await loadFileWithDelay('data/activity-link-onedrive.json');
-						expect(element.shadowRoot.querySelector('d2l-sequences-content-link-onedrive')).to.exist;
-					});
-				});
-			});
-		</script>
+	describe('should handle link activities', () => {
+		it('should handle mixed security links', async() => {
+			const element = await loadFileWithDelay('data/activity-link-insecure.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-link')).to.exist;
+		});
+		it('should handle normal links', async() => {
+			const element = await loadFileWithDelay('data/activity-link-secure.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-link-mixed')).to.exist;
+		});
+		it('should handle scorm links', async() => {
+			const element = await loadFileWithDelay('data/activity-link-scorm.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-link-scorm')).to.exist;
+		});
+		it('should handle onedrive links', async() => {
+			const element = await loadFileWithDelay('data/activity-link-onedrive.json');
+			expect(element.shadowRoot.querySelector('d2l-sequences-content-link-onedrive')).to.exist;
+		});
+	});
+});
+</script>
 	</body>
 </html>

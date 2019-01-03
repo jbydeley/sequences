@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 		<title>d2l-sequences-content-file-html test</title>
-		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../wct-browser-legacy/browser.js"></script>
 		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
 		<script src="../node_modules/chai-dom/chai-dom.js"></script>
-		<link rel="import" href="../components/d2l-sequences-content-file-html.html">
+		<script type="module" src="../components/d2l-sequences-content-file-html.js"></script>
 	</head>
 	<body>
 		<test-fixture id="FileFixture">
@@ -16,19 +16,20 @@
 				<d2l-sequences-content-file-html></d2l-sequences-content-file-html>
 			</template>
 		</test-fixture>
-		<script>
-			describe('d2l-sequences-content-file-html', () => {
-				before(() => {
-					// skip completion tracking, preventing extraneous HTTP requests
-					D2LSequencesContentFileHtml.prototype._skipCompletion = true;
-				});
+		<script type="module">
+import '../components/d2l-sequences-content-file-html.js';
+describe('d2l-sequences-content-file-html', () => {
+	before(() => {
+		// skip completion tracking, preventing extraneous HTTP requests
+		D2LSequencesContentFileHtml.prototype._skipCompletion = true;
+	});
 
-				it('iframe source must match the file-activity src', async() => {
-					const element = await SirenFixture.load('data/activity-file-html.json', fixture('FileFixture'));
-					const iframe = element.shadowRoot.querySelector('iframe');
-					expect(iframe).to.have.attribute('src', '../test/data/test.html');
-				});
-			});
-		</script>
+	it('iframe source must match the file-activity src', async() => {
+		const element = await SirenFixture.load('data/activity-file-html.json', fixture('FileFixture'));
+		const iframe = element.shadowRoot.querySelector('iframe');
+		expect(iframe).to.have.attribute('src', '../test/data/test.html');
+	});
+});
+</script>
 	</body>
 </html>
