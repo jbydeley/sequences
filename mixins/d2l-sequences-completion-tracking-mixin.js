@@ -2,7 +2,7 @@ import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-polymer-siren-behaviors/store/siren-action-behavior.js';
 import '../localize-behavior.js';
-import '../maybe.js';
+import { Maybe } from '../maybe.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 function CompletionTrackingMixin() {

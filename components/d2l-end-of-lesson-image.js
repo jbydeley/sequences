@@ -5,8 +5,8 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 @memberOf window.D2L.Polymer.Mixins;
 */
 class D2LEndOfLessonImage extends PolymerElement {
-  static get template() {
-	return html`
+	static get template() {
+		return html`
 		<style>
 			.completed .st0{fill:#B9C2D1;}
 			.completed .st1{fill:#D3D9E3;}
@@ -2223,18 +2223,18 @@ class D2LEndOfLessonImage extends PolymerElement {
 			</svg>
 		</template>
 `;
-  }
+	}
 
-  static get is() {
-	  return 'd2l-end-of-lesson-image';
-  }
-  static get properties() {
-	  return {
-		  completed: {
-			  type: Boolean,
-			  value: false
-		  }
-	  };
-  }
+	static get is() {
+		return 'd2l-end-of-lesson-image';
+	}
+	static get properties() {
+		return {
+			completed: {
+				type: Boolean,
+				value: false
+			}
+		};
+	}
 }
 customElements.define(D2LEndOfLessonImage.is, D2LEndOfLessonImage);

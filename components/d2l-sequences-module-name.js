@@ -9,8 +9,8 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 class D2LSequencesModuleName extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior
 ], PolymerElement) {
-  static get template() {
-	return html`
+	static get template() {
+		return html`
 		<style>
 			:host {
 				display: inline;
@@ -18,22 +18,22 @@ class D2LSequencesModuleName extends mixinBehaviors([
 		</style>
 		[[title]]
 `;
-  }
+	}
 
-  static get is() {
-	  return 'd2l-sequences-module-name';
-  }
-  static get properties() {
-	  return {
-		  title: {
-			  type: Object,
-			  computed: '_getTitle(entity)',
-			  notify: true
-		  }
-	  };
-  }
-  _getTitle(entity) {
-	  return entity && entity.properties && entity.properties.title || '';
-  }
+	static get is() {
+		return 'd2l-sequences-module-name';
+	}
+	static get properties() {
+		return {
+			title: {
+				type: Object,
+				computed: '_getTitle(entity)',
+				notify: true
+			}
+		};
+	}
+	_getTitle(entity) {
+		return entity && entity.properties && entity.properties.title || '';
+	}
 }
 customElements.define(D2LSequencesModuleName.is, D2LSequencesModuleName);

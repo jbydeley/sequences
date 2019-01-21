@@ -15,8 +15,8 @@ class D2LSequencesIterator extends mixinBehaviors([
 ],
 PolymerElement
 ) {
-  static get template() {
-	return html`
+	static get template() {
+		return html`
 		<style>
 			d2l-navigation-button-notification-icon {
 				display: inline-block;
@@ -29,12 +29,12 @@ PolymerElement
 		</style>
 		<d2l-navigation-button-notification-icon id="iteratorButton" disabled="[[disabled]]" aria-disabled$="[[disabled]]" icon="[[icon]]" type="button" on-click="_onClick">[[localize(iterateTo)]]</d2l-navigation-button-notification-icon>
 `;
-  }
+	}
 
-  static get is() {
+	static get is() {
 	  return 'd2l-sequences-iterator';
-  }
-  static get properties() {
+	}
+	static get properties() {
 	  return {
 		  href: {
 			  type: String,
@@ -65,14 +65,14 @@ PolymerElement
 			  computed: 'getIterateTo()'
 		  }
 	  };
-  }
-  static get observers() {
+	}
+	static get observers() {
 	  return ['_setLink(entity)'];
-  }
-  connectedCallback() {
+	}
+	connectedCallback() {
 	  super.connectedCallback();
-  }
-  getIterateTo() {
+	}
+	getIterateTo() {
 	  if (this.next) {
 		  return 'iterateToNext';
 	  }
@@ -82,8 +82,8 @@ PolymerElement
 	  else if (this.up) {
 		  return 'iterateToParent';
 	  }
-  }
-  _isDisabled(entity) {
+	}
+	_isDisabled(entity) {
 	  if (!entity) {
 		  return true;
 	  }
@@ -100,14 +100,14 @@ PolymerElement
 		  return true;
 	  }
 	  return false;
-  }
-  _onClick() {
+	}
+	_onClick() {
 	  if (this.link && this.link.href) {
 		  this.href = this.link.href;
 		  this.dispatchEvent(new CustomEvent('iterate', {composed: true, bubbles: true}));
 	  }
-  }
-  _setLink(entity) {
+	}
+	_setLink(entity) {
 	  if (!entity) {
 		  return;
 	  }
@@ -122,6 +122,6 @@ PolymerElement
 	  else if (this.up) {
 		  this.link = entity.getLinkByRel('up');
 	  }
-  }
+	}
 }
 customElements.define(D2LSequencesIterator.is, D2LSequencesIterator);

@@ -3,7 +3,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 function ReturnMixin(classes) {
 	return class extends mixinBehaviors(classes, PolymerElement) {
 		_onClickBack() {
-		const event = new CustomEvent('sequences-return-mixin-click-back', {
+			const event = new CustomEvent('sequences-return-mixin-click-back', {
 				composed: true,
 				bubbles: true
 			});

@@ -1,3 +1,4 @@
+import '@polymer/polymer/polymer-legacy.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { DomModule } from '@polymer/polymer/lib/elements/dom-module.js';
@@ -56,8 +57,8 @@ function RouterMixin(getEntityType) {
 					if (entity &&
 						(!this._contentElement || this._contentElement.href !== this.href)
 					) {
-						const nodeTemplate = DomModule.import(entityType, 'template');
-						const contentElement = document.createElement(entityType);
+						const nodeTemplate = entityType.template.cloneNode(true);
+						const contentElement = document.createElement(entityType.is);
 						contentElement.appendChild(this._stampTemplate(nodeTemplate));
 
 						if (this._contentElement) {

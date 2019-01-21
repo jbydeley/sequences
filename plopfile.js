@@ -12,5 +12,5 @@ module.exports = function(plop) {
 			templateFile: './plop/localize-behavior.hbs',
 			force: true
 		}]
-	})
-}
+	});
+};

@@ -6,8 +6,8 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 	@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 */
 class D2LSequencesContentFileDownload extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
-  static get template() {
-	return html`
+	static get template() {
+		return html`
 		<style>
 			.content-file-download-container {
 				padding-top: 100px;
@@ -57,84 +57,84 @@ class D2LSequencesContentFileDownload extends D2L.Polymer.Mixins.Sequences.Autom
 			</template>
 		</div>
 `;
-  }
+	}
 
-  static get is() {
-	  return 'd2l-sequences-content-file-download';
-  }
-  static get properties() {
-	  return {
-		  href: {
-			  type: String,
-			  reflectToAttribute: true,
-			  notify: true,
-			  observer: '_scrollToTop'
-		  },
-		  _fileLocation: {
-			  type: String,
-			  computed: '_getFileLocation(entity)',
-			  observer: '_setRawFileSize'
-		  },
-		  _language: {
-			  type: String
-		  },
-		  _rawFileSize: {
-			  type: Number
-		  },
-		  _fileSize: {
-			  type: String,
-			  computed: '_getHumanFileSize(_rawFileSize)'
-		  }
-	  };
-  }
+	static get is() {
+		return 'd2l-sequences-content-file-download';
+	}
+	static get properties() {
+		return {
+			href: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true,
+				observer: '_scrollToTop'
+			},
+			_fileLocation: {
+				type: String,
+				computed: '_getFileLocation(entity)',
+				observer: '_setRawFileSize'
+			},
+			_language: {
+				type: String
+			},
+			_rawFileSize: {
+				type: Number
+			},
+			_fileSize: {
+				type: String,
+				computed: '_getHumanFileSize(_rawFileSize)'
+			}
+		};
+	}
 
-  _scrollToTop() {
-	  window.top.scrollTo(0, 0);
-  }
+	_scrollToTop() {
+		window.top.scrollTo(0, 0);
+	}
 
-  _getFileLocation(entity) {
-	  try {
-		  const fileActivity = entity.getSubEntityByClass('file-activity');
-		  const file = fileActivity.getSubEntityByClass('file');
-		  const link = file.getLinkByRel('alternate');
-		  return link.href;
-	  } catch (e) {
-		  return '';
-	  }
-  }
+	_getFileLocation(entity) {
+		try {
+			const fileActivity = entity.getSubEntityByClass('file-activity');
+			const file = fileActivity.getSubEntityByClass('file');
+			const link = file.getLinkByRel('alternate');
+			return link.href;
+		} catch (e) {
+			return '';
+		}
+	}
 
-  _getHumanFileSize(bytes) {
-	  const thresh = 1000;
-	  const units = ['B', 'kB', 'MB', 'GB', 'TB'];
+	_getHumanFileSize(bytes) {
+		const thresh = 1000;
+		const units = ['B', 'kB', 'MB', 'GB', 'TB'];
 
-	  let i;
-	  for (i = 0; Math.abs(bytes) >= thresh && i < units.length - 1; i++) {
-		  bytes /= thresh;
-	  }
+		let i;
+		for (i = 0; Math.abs(bytes) >= thresh && i < units.length - 1; i++) {
+			bytes /= thresh;
+		}
 
-	  const size = parseFloat(bytes.toFixed(1)).toLocaleString(this._language);
-	  return `${size} ${units[i]}`;
-  }
+		const size = parseFloat(bytes.toFixed(1)).toLocaleString(this._language);
+		return `${size} ${units[i]}`;
+	}
 
-  _setRawFileSize() {
-	  if (!this._fileLocation) {
-		  return;
-	  }
+	_setRawFileSize() {
+		if (!this._fileLocation) {
+			return;
+		}
 
-	  fetch(this._fileLocation, {
-		  method: 'HEAD',
-		  headers: new Headers({
-			  'Authorization': `Bearer ${this.token}`
-		  })
-	  }).then(({headers}) => {
-		  const length = parseFloat(headers.get('content-length'));
+		fetch(this._fileLocation, {
+			method: 'HEAD',
+			headers: new Headers({
+				'Authorization': `Bearer ${this.token}`
+			})
+		}).then(({headers}) => {
+			const length = parseFloat(headers.get('content-length'));
 
-		  this._rawFileSize = isNaN(length)
-			  ? 0
-			  : length;
-	  }).catch(() => {
-		  this._rawFileSize = 0;
-	  });
-  }
+			this._rawFileSize = isNaN(length)
+				? 0
+				: length;
+		}).catch(() => {
+			this._rawFileSize = 0;
+		});
+	}
 }
 customElements.define(D2LSequencesContentFileDownload.is, D2LSequencesContentFileDownload);

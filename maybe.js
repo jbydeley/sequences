@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-class Maybe {
+export class Maybe {
 	constructor(value) {
 		if (value instanceof Maybe) {
 			return value;

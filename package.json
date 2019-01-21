@@ -9,9 +9,9 @@
   "scripts": {
     "build:lang": "gulp build-locales",
     "build": "npm run build:lang",
-    "lint:fix": "eslint *.html {components,mixins,test,demo}/*.html --fix",
+    "lint:fix": "eslint *.js {components,mixins,test,demo}/*.js --fix",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
-    "lint": "npm run lint:wc && npm run lint:js",
+    "lint": "npm run lint:js",
     "pretest": "npm run lint",
     "test": "polymer test --skip-plugin sauce",
     "test-p": "polymer test --skip-plugin sauce -p",

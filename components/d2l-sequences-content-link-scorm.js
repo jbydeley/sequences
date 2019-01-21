@@ -6,9 +6,9 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
 	@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 */
-class D2LSequencesContentLinkScorm extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
-  static get template() {
-	return html`
+export class D2LSequencesContentLinkScorm extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
+	static get template() {
+		return html`
 		<style>
 			.content-link-scorm-container {
 				padding-top: 100px;
@@ -39,41 +39,41 @@ class D2LSequencesContentLinkScorm extends D2L.Polymer.Mixins.Sequences.Automati
 			</d2l-button>
 		</div>
 `;
-  }
+	}
 
-  static get is() {
-	  return 'd2l-sequences-content-link-scorm';
-  }
-  static get properties() {
-	  return {
-		  href: {
-			  type: String,
-			  reflectToAttribute: true,
-			  notify: true,
-			  observer: '_scrollToTop'
-		  },
-		  _linkLocation: {
-			  type: String,
-			  computed: '_getLinkLocation(entity)'
-		  }
-	  };
-  }
-  static get contentClass() {
-	  return 'link-content-service';
-  }
+	static get is() {
+		return 'd2l-sequences-content-link-scorm';
+	}
+	static get properties() {
+		return {
+			href: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true,
+				observer: '_scrollToTop'
+			},
+			_linkLocation: {
+				type: String,
+				computed: '_getLinkLocation(entity)'
+			}
+		};
+	}
+	static get contentClass() {
+		return 'link-content-service';
+	}
 
-  _scrollToTop() {
-	  window.top.scrollTo(0, 0);
-  }
+	_scrollToTop() {
+		window.top.scrollTo(0, 0);
+	}
 
-  _getLinkLocation(entity) {
-	  try {
-		  const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
-		  const link = linkActivity.getLinkByRel('about');
-		  return link.href;
-	  } catch (e) {
-		  return '';
-	  }
-  }
+	_getLinkLocation(entity) {
+		try {
+			const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
+			const link = linkActivity.getLinkByRel('about');
+			return link.href;
+		} catch (e) {
+			return '';
+		}
+	}
 }
 customElements.define(D2LSequencesContentLinkScorm.is, D2LSequencesContentLinkScorm);

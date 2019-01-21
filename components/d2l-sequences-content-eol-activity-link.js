@@ -12,8 +12,8 @@ class D2LSequencesContentEoLActivityLink extends mixinBehaviors([
 ],
 PolymerElement
 ) {
-  static get template() {
-	return html`
+	static get template() {
+		return html`
 		<style>
 			:host {
 				display: block;
@@ -24,36 +24,36 @@ PolymerElement
 			[[title]]
 		</d2l-link>
 `;
-  }
+	}
 
-  static get is() {
-	  return 'd2l-sequences-content-eol-activity-link';
-  }
-  static get properties() {
-	  return {
-		  title: {
-			  type: Object,
-			  computed: '_getTitle(entity)'
-		  },
-		  href: {
-			  type: String,
-			  reflectToAttribute: true,
-		  }
-	  };
-  }
+	static get is() {
+		return 'd2l-sequences-content-eol-activity-link';
+	}
+	static get properties() {
+		return {
+			title: {
+				type: Object,
+				computed: '_getTitle(entity)'
+			},
+			href: {
+				type: String,
+				reflectToAttribute: true,
+			}
+		};
+	}
 
-  _onClick() {
-	  const event = new CustomEvent('hrefUpdated', {
-		  detail: { href: this.href },
-		  composed: true,
-		  bubbles: true
-	  });
+	_onClick() {
+		const event = new CustomEvent('hrefUpdated', {
+			detail: { href: this.href },
+			composed: true,
+			bubbles: true
+		});
 
-	  this.dispatchEvent(event);
-  }
+		this.dispatchEvent(event);
+	}
 
-  _getTitle(entity) {
-	  return entity && entity.properties && entity.properties.title || '';
-  }
+	_getTitle(entity) {
+		return entity && entity.properties && entity.properties.title || '';
+	}
 }
 customElements.define(D2LSequencesContentEoLActivityLink.is, D2LSequencesContentEoLActivityLink);
