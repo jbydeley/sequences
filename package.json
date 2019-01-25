@@ -1,5 +1,6 @@
 {
   "description": "",
+  "flat": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/BrightspaceComponents/sequences"
@@ -7,7 +8,7 @@
   "homepage": "https://github.com/BrightspaceComponents/sequences",
   "name": "d2l-sequences",
   "scripts": {
-    "build:lang": "gulp build-locales",
+    "build:lang": "gulp && npm run gen:localize",
     "build": "npm run build:lang",
     "lint:fix": "eslint *.js {components,mixins,test,demo}/*.js --fix",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
@@ -15,7 +16,6 @@
     "pretest": "npm run lint",
     "test": "polymer test --skip-plugin sauce",
     "test-p": "polymer test --skip-plugin sauce -p",
-    "locales": "gulp build-locales && npm run gen:localize",
     "gen:localize": "plop localize",
     "start": "polymer analyze > analysis.json && polymer serve"
   },
@@ -30,7 +30,7 @@
     "eslint": "^4.2.0",
     "eslint-config-brightspace": "^0.4.0",
     "eslint-plugin-html": "^4.0.1",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-merge-json": "^1.3.1",
     "plop": "^2.0.0",
     "polymer-cli": "^1.9.5",
@@ -49,6 +49,7 @@
     "d2l-content-icons": "Brightspace/d2l-content-icons#semver:^3",
     "@polymer/polymer": "^3.0.0",
     "d2l-button": "BrightspaceUI/button#semver:^5",
+    "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "d2l-link": "BrightspaceUI/link#semver:^5",
     "d2l-loading-spinner": "BrightspaceUI/loading-spinner#semver:^7",
     "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",

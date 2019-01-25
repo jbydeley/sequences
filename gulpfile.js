@@ -1,9 +1,10 @@
-import { task, src, dest } from 'gulp';
-import merge from 'gulp-merge-json';
-import { basename } from 'path';
+/* eslint-disable */
+const { src, dest } = require('gulp');
+const merge = require('gulp-merge-json');
+const { basename } = require('path');
 
-task('build-locales', () => {
-	src('lang/*.json')
+function defaultTask() {
+	return src('lang/*.json')
 		.pipe(merge({
 			fileName: 'locales.json',
 			edit: (parsedJson, file) => {
@@ -14,4 +15,6 @@ task('build-locales', () => {
 			}
 		}))
 		.pipe(dest('.'));
-});
+}
+
+exports.default = defaultTask;

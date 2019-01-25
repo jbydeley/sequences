@@ -1,6 +1,7 @@
-import locales from './locales.json';
+/* eslint-disable */
+const locales = require('./locales.json');
 
-export default function(plop) {
+module.exports = function(plop) {
 	plop.setPartial('locales', JSON.stringify(locales));
 
 	plop.setGenerator('localize', {
@@ -8,7 +9,7 @@ export default function(plop) {
 		prompts: [],
 		actions: [{
 			type: 'add',
-			path: './localize-behavior.html',
+			path: './localize-behavior.js',
 			templateFile: './plop/localize-behavior.hbs',
 			force: true
 		}]
