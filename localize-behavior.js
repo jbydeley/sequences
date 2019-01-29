@@ -1,9 +1,11 @@
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-localize-behavior/d2l-localize-behavior.js';
+
 /* eslint-disable */
 window.D2L = window.D2L || {};
 window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
 window.D2L.PolymerBehaviors.Sequences = window.D2L.PolymerBehaviors.Sequences || {};
+
 /**
  * THIS FILE IS GENERATED. RUN `npm run locales` TO REGENERATE.
  * Localizes the sequences component.
@@ -21,6 +23,7 @@ D2L.PolymerBehaviors.Sequences.LocalizeBehaviorImpl = {
 		}
 	}
 };
+
 /** @polymerBehavior D2L.PolymerBehaviors.Sequences.LocalizeBehavior */
 D2L.PolymerBehaviors.Sequences.LocalizeBehavior = [
 	D2L.PolymerBehaviors.LocalizeBehavior,
