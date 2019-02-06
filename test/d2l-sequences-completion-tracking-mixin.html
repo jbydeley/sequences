@@ -7,16 +7,14 @@
 	<title>d2l-completion-tracking-mixin test</title>
 	<script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 	<script src="../../wct-browser-legacy/browser.js"></script>
-	<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
 	<script src="../node_modules/chai-dom/chai-dom.js"></script>
-	<script type="module" src="../../@polymer/polymer/polymer-element.js"></script>
-	<script type="module" src="../mixins/d2l-sequences-completion-tracking-mixin.js"></script>
 </head>
 
 <body>
 	<script type="module">
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '../mixins/d2l-sequences-completion-tracking-mixin.js';
+
 class CompletionTrackingTest extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin(PolymerElement) {
 	static get is() {
 		return 'completion-tracking-test';
@@ -38,6 +36,8 @@ customElements.define(CompletionTrackingTest.is, CompletionTrackingTest);
 	<script type="module">
 import '@polymer/polymer/polymer-element.js';
 import '../mixins/d2l-sequences-completion-tracking-mixin.js';
+import SirenFixture from 'polymer-siren-test-helpers';
+
 describe('d2l-sequences-completion-tracking-mixin', () => {
 	let element;
 
@@ -65,7 +65,7 @@ describe('d2l-sequences-completion-tracking-mixin', () => {
 	it('startCompletion must perform siren action: view-activity-duration', async() => {
 		const performSirenAction = sinon.spy(element, 'performSirenAction');
 
-		await SirenFixture.load('data/activity-completion-all.json', element);
+		await SirenFixture('data/activity-completion-all.json', element);
 		element.startCompletion();
 
 		expect(performSirenAction).to.have.been.calledWithMatch({
@@ -76,7 +76,7 @@ describe('d2l-sequences-completion-tracking-mixin', () => {
 	it('topicSetDashboardViewState must perform siren action: set-dashboard-view-state', async() => {
 		const performSirenAction = sinon.spy(element, 'performSirenAction');
 
-		await SirenFixture.load('data/activity-completion-all.json', element);
+		await SirenFixture('data/activity-completion-all.json', element);
 		element.topicSetDashboardViewState();
 		expect(performSirenAction).to.have.been.calledWithMatch({
 			name: 'set-dashboard-view-state',
@@ -86,7 +86,7 @@ describe('d2l-sequences-completion-tracking-mixin', () => {
 	it('startCompletion must not perform completion tracking during impersonation', async() => {
 		const performViewActions = sinon.spy(element, '_performViewActions');
 
-		await SirenFixture.load('data/activity-completion-all.json', element);
+		await SirenFixture('data/activity-completion-all.json', element);
 		element.token = createFakeToken({
 			sub: 175,
 			actualsub: 169
@@ -99,7 +99,7 @@ describe('d2l-sequences-completion-tracking-mixin', () => {
 	it('finishCompletion must not perform completion tracking during impersonation', async() => {
 		const performViewActions = sinon.spy(element, '_performViewActions');
 
-		await SirenFixture.load('data/activity-completion-all.json', element);
+		await SirenFixture('data/activity-completion-all.json', element);
 		element.token = createFakeToken({
 			sub: 175,
 			actualsub: 169
@@ -112,7 +112,7 @@ describe('d2l-sequences-completion-tracking-mixin', () => {
 	it('finishCompletion must perform siren action: finish-view-activity', async() => {
 		const performSirenAction = sinon.spy(element, 'performSirenAction');
 
-		await SirenFixture.load('data/activity-completion-all.json', element);
+		await SirenFixture('data/activity-completion-all.json', element);
 		element._completionEntity = element.entity;
 		element.finishCompletion();
 

@@ -7,8 +7,6 @@
 	<title>d2l-sequences-topic-name test</title>
 	<script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 	<script src="../../wct-browser-legacy/browser.js"></script>
-	<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
-	<script type="module" src="../components/d2l-sequences-topic-name.js"></script>
 </head>
 
 <body>
@@ -25,15 +23,17 @@
 	</test-fixture>
 
 	<script type="module">
-import '../components/d2l-sequences-topic-name.js';
+import { D2LSequencesTopicName } from '../components/d2l-sequences-topic-name.js';
+import SirenFixture from 'polymer-siren-test-helpers';
+
 describe('d2l-sequences-topic-name', () => {
 	it('should instantiate the element', () => {
 		const elem = fixture('basic');
-		expect(elem.tagName).to.equal('D2L-SEQUENCES-TOPIC-NAME');
+		expect(elem.tagName.toLowerCase()).to.equal(D2LSequencesTopicName.is);
 	});
 
 	it('should display the title', async() => {
-		const elem = await SirenFixture.load('../demo/data/l2-m1-activity1.json', fixture('lessBasic'));
+		const elem = await SirenFixture('../demo/data/l2-m1-activity1.json', fixture('lessBasic'));
 		expect(elem.title).to.equal('Accessible Word Document');
 	});
 });

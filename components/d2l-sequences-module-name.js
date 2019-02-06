@@ -6,7 +6,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 /*
 	@demo demos/index.html
  */
-class D2LSequencesModuleName extends mixinBehaviors([
+export class D2LSequencesModuleName extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior
 ], PolymerElement) {
 	static get template() {

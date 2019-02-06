@@ -7,10 +7,7 @@
 	<title>d2l-completion-tracking-mixin test</title>
 	<script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 	<script src="../../wct-browser-legacy/browser.js"></script>
-	<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
 	<script src="../node_modules/chai-dom/chai-dom.js"></script>
-	<script type="module" src="../../@polymer/polymer/polymer-element.js"></script>
-	<script type="module" src="../mixins/d2l-sequences-automatic-completion-tracking-mixin.js"></script>
 </head>
 
 <body>
@@ -38,6 +35,8 @@ customElements.define(AutomaticCompletionTrackingTest.is, AutomaticCompletionTra
 	<script type="module">
 import '@polymer/polymer/polymer-element.js';
 import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
+import SirenFixture from 'polymer-siren-test-helpers';
+
 describe('d2l-sequences-automatic-completion-tracking-mixin', () => {
 	let element;
 
@@ -49,7 +48,7 @@ describe('d2l-sequences-automatic-completion-tracking-mixin', () => {
 		const startCompletion = sinon.stub(element, 'startCompletion', () => {});
 		const finishCompletion = sinon.stub(element, 'finishCompletion', () => {});
 		const topicSetDashboardViewState = sinon.stub(element, 'topicSetDashboardViewState', () => {});
-		await SirenFixture.load('data/activity-completion-all.json', element);
+		await SirenFixture('data/activity-completion-all.json', element);
 		expect(startCompletion).to.have.been.called;
 		expect(topicSetDashboardViewState).to.have.been.called;
 		expect(finishCompletion).to.have.been.called;
